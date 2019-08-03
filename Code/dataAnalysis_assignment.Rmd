@@ -1,0 +1,62 @@
+---
+title: "DataAnalytics_Assignment"
+author: "Manisha sharma"
+date: "August 3, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+##To research distribution of income among different gender based on different industries.
+
+
+### Retrieve the data
+
+```{r }
+
+incomeData <- read.csv("D:\\695\\week11\\income.csv")
+str(incomeData)
+
+incomeData <- na.omit(incomeData)
+
+```
+### To check association between quantative data
+
+```{r }
+chisq.test(incomeData$M_weekly,incomeData$F_weekly)
+chisq.test(incomeData$All_workers,incomeData$All_weekly)
+chisq.test(incomeData$M_workers,incomeData$F_workers)
+
+```
+###Exploratory Data Analysis
+
+```{r }
+
+
+library(ggplot2)
+
+library(caret)
+
+# considering 5 industries based on preference
+indData <- subset(incomeData, incomeData$Industry == "Management" | incomeData$Industry =="Engineering"| incomeData$Industry == "Science")
+histogram(indData$Industry)
+
+ggplot(incomeData, aes(x = incomeData$Industry, y = incomeData$All_workers)) + geom_point()
+
+```
+#Explain what type of regression you will choose and why
+### Logistic regression can be used. Dependant variable in this dataset is industry which is categorical variable
+
+```{r }
+plot(incomeData$Industry,incomeData$All_weekly)
+```
+
+
+
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
